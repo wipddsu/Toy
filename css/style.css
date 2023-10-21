@@ -1,3 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  letter-spacing: -0.05rem;
+  box-sizing: border-box;
+}
+
 .hidden {
   display: none;
+}
+
+#todo-list li.dragging {
+  background-color: #f5f5f5;
+}
+
+.drag-over{
+  background-color: #f5f5f5;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 11.25rem;
+  font-size: 1rem;
+}
+
+section {
+  width: 67.5rem;
+  box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.15);
+}
+
+header {
+  outline: 1px solid #000;
+}
+
+header::after{
+  clear: both;
+}
+
+#greeting{
+}
+#clock{
+}
+
+main {
+  float: right;
+  width: 63%;
+  outline: 1px solid #000;
+}
+
+aside {
+  float: left;
+  width: 37%;
+  outline: 1px solid #000;
+  out
+}
+
+aside .boxTop{
+  height: 25rem;
+  outline: 1px solid #000;
+}
+
+aside .boxBottom{
+  height: 15.625rem;
+  outline: 1px solid #000;
+}
+
+#todo-form input{
+  width: 100%;
+  padding: 24px;
+  border: none;
+  font-size: 1.5rem;
+}
+
+#todo-form input::placeholder{
+  font-weight: 100;
+  color: #b2b2b2;
+}
+
+#todo-list {
+  list-style: none;
+  margin: 0;
+}
+
+#todo-list li {
+  position: relative;
+  padding: 1.9rem 2rem;
+  background-color: #fff;
+  outline: 1px solid #000;
+}
+
+#todo-list li span {
+  display: block;
+}
+
+#todo-list li button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
