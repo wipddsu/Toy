@@ -21,17 +21,32 @@
         <h1 id="greeting" class="hidden"></h1>
         <h2 id="clock">00:00:00</h2>
       </header>
-      <main>
-        <form id="todo-form">
-          <input type="text" placeholder="Write a To Do and Press Enter" />
-        </form>
-        <ul id="todo-list"></ul>
-        <div class="hidden">
-          <p>There is no To Do.</p>
-        </div>
-      </main>
       <aside>
-        <div class="boxTop" id="calendar"></div>
+        <div class="boxTop" id="calendarContainer">
+          <table id="calendar" align="center">
+            <thead>
+              <tr>
+                <td id="current-year-month" colspan="5"></td>
+                <td>
+                  <label id="calendar-prev"> &#60; </label>
+                </td>
+                <td>
+                  <label id="calendar-next">&#62;</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="sun" align="center">Sun</td>
+                <td align="center">Mon</td>
+                <td align="center">Tue</td>
+                <td align="center">Wed</td>
+                <td align="center">Thu</td>
+                <td align="center">Fri</td>
+                <td class="sat" align="center">Sat</td>
+              </tr>
+            </thead>
+            <tbody id="calendar-body" class="calendar-body"></tbody>
+          </table>
+        </div>
         <div class="boxBottom">
           <div id="weather">
             <span></span>
@@ -43,13 +58,31 @@
           </div>
         </div>
       </aside>
+      <main>
+        <form id="todo-form">
+          <input type="text" placeholder="Write a To Do and Press Enter" />
+        </form>
+        <div class="toDoListContainer">
+          <ul id="todo-list"></ul>
+          <div class="noItem hidden">
+            <p>There is no To Do.</p>
+          </div>
+        </div>
+        <div class="filterContainer">
+          <p>
+            <span>Filter</span>
+            <button id="filter" disabled="true"></button>
+          </p>
+        </div>
+      </main>
     </section>
     <script src="js/greeting.js"></script>
     <script src="js/clock.js"></script>
     <script src="js/quotes.js"></script>
     <!-- <script src="js/background.js"></script> -->
-    <script src="js/todo.js"></script>
+    <!-- <script src="js/todo.js"></script> -->
     <script src="js/weather.js"></script>
-    <!-- <script src="js/dragndrop.js"></script> -->
+    <script src="js/calendar.js"></script>
+    <script src="js/filter.js"></script>
   </body>
 </html>
