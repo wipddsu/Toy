@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  border-collapse: collapse;
   letter-spacing: -0.05rem;
   box-sizing: border-box;
 }
@@ -14,7 +13,7 @@
   background-color: #f5f5f5;
 }
 
-.drag-over{
+.drag-over {
   background-color: #f5f5f5;
 }
 
@@ -27,72 +26,83 @@ body {
 }
 
 section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   width: 67.5rem;
   box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.15);
 }
 
 header {
-  outline: 1px solid #000;
+  grid-column: 1 / span 2;
+  border: 1px solid #000;
+  border-bottom: none;
 }
 
-header::after{
-  clear: both;
+#greeting {
 }
-
-#greeting{
-}
-#clock{
+#clock {
 }
 
 main {
-  float: right;
-  width: 63%;
-  outline: 1px solid #000;
+  position: relative;
+  height: 40.75rem;
+  overflow: hidden;
+  border: 1px solid #000;
 }
 
 aside {
-  float: left;
-  width: 37%;
-  outline: 1px solid #000;
-  out
+  border: 1px solid #000;
+  border-right: none;
 }
 
-aside .boxTop{
-  height: 25rem;
-  outline: 1px solid #000;
+aside .boxTop {
 }
 
-aside .boxBottom{
-  height: 15.625rem;
+aside .boxBottom {
   outline: 1px solid #000;
 }
 
-#todo-form input{
+/* todo list */
+#todo-form {
+  position: relative;
+  z-index: 1;
+}
+
+#todo-form input {
   width: 100%;
   padding: 24px;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  outline: 1px solid #000;
 }
 
-#todo-form input::placeholder{
+#todo-form input::placeholder {
   font-weight: 100;
+  font-size: 1rem;
   color: #b2b2b2;
+}
+
+.toDoListContainer {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 #todo-list {
   list-style: none;
   margin: 0;
+  border-top: 1px solid #000;
 }
 
 #todo-list li {
   position: relative;
   padding: 1.9rem 2rem;
   background-color: #fff;
-  outline: 1px solid #000;
+  border-bottom: 1px solid #000;
+  z-index: 0;
 }
 
 #todo-list li span {
-  display: block;
+  display: inline-block;
 }
 
 #todo-list li button {
@@ -100,4 +110,108 @@ aside .boxBottom{
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* calendar */
+.active {
+  background: #000;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.sun {
+  color: #ef3333;
+}
+.sat {
+  color: #2107e0;
+}
+
+#calendarContainer {
+  padding: 24px;
+}
+
+#calendar {
+  width: 100%;
+}
+
+#current-year-month {
+  font-weight: bold;
+}
+
+#calendar tr td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+#calendar tbody tr td {
+  position: relative;
+}
+
+#calendar tbody tr td.hasItem::before {
+  content: '';
+  display: block;
+  position: relative;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: #ef3333;
+  border-radius: 50%;
+}
+
+#calendar tr td#current-year-month {
+  text-align: left;
+}
+
+/* filter */
+.filterContainer p {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  text-align: right;
+  background-color: #fff;
+  outline: 1px solid #000;
+}
+.filterContainer p span {
+  color: #b2b2b2;
+  text-align: center;
+  font-size: 0.9rem;
+}
+#filter {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  border-radius: 100px;
+  background-color: #fff;
+  border: 1px solid #666666;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: 0.3s;
+}
+#filter::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border-radius: 100%;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+}
+#filter.on::after {
+  background-color: #005de8;
+  transform: translateX(20px);
+}
+#filter:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
