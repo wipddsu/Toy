@@ -71,8 +71,6 @@ let totalWeeks = new Date().getWeekOfMonth();*/
 
 // 주차별 일자를 렌더링 하는 함수
 const showCalendar = function () {
-  console.log(first.getMonth());
-  console.log(first);
   let monthCnt = 100;
   let cnt = 1;
   for (let i = 0; i < weekCount(first); i++) {
@@ -143,6 +141,7 @@ const prev = function () {
   clickedDate1 = document.getElementById(today.getDate());
   clickedDate1.classList.add('active');
   clickStart();
+  markingDate();
 
   // 기존 투두리스트 삭제
   const li = document.querySelectorAll('#todo-list li');
@@ -151,6 +150,12 @@ const prev = function () {
   });
 
   current_date_check();
+
+  // init filter
+  document.getElementById('filter').classList.remove('on');
+
+  // disabled filter
+  document.getElementById('filter').setAttribute('disabled', true);
 };
 // -----'이전 달 이동' 원래 소스코드 (위에 코드랑 작동에는 차이 없었음)
 // const prev = function () {
@@ -195,6 +200,7 @@ const next = function () {
   clickedDate1 = document.getElementById(today.getDate());
   clickedDate1.classList.add('active');
   clickStart();
+  markingDate();
 
   // 기존 투두리스트 삭제
   const li = document.querySelectorAll('#todo-list li');
@@ -203,6 +209,12 @@ const next = function () {
   });
 
   current_date_check();
+
+  // init filter
+  document.getElementById('filter').classList.remove('on');
+
+  // disabled filter
+  document.getElementById('filter').setAttribute('disabled', true);
 };
 // -----'다음 달 이동' 원래 소스코드(위에 코드랑 작동에는 차이 없었음)
 // const next = function () {
@@ -248,7 +260,6 @@ function changeToday(e) {
   clickedDate1.classList.add('active');
   today = new Date(today.getFullYear(), today.getMonth(), clickedDate1.id);
   TODOS_KEY = today;
-  console.log(today, TODOS_KEY);
 
   // 기존 투두리스트 삭제
   const li = document.querySelectorAll('#todo-list li');
@@ -257,6 +268,12 @@ function changeToday(e) {
   });
 
   current_date_check();
+
+  // init filter
+  document.getElementById('filter').classList.remove('on');
+
+  // disabled filter
+  document.getElementById('filter').setAttribute('disabled', true);
 }
 
 // 해당 일자로 된 키값이 있으면 리스트 불러오기
@@ -271,6 +288,22 @@ function current_date_check() {
     noItem.classList.remove('hidden');
   }
 }
+
+// 리스트가 있는 일자 표시
+//for문으로 한달 전체 일자를 돌려서 해당일자에 대한 로컬스토리지 값을 가지고 있으면 빨간색 표시
+function markingDate() {
+  for (let i = 1; i <= pageYear[first.getMonth()]; i++) {
+    let checkDate = localStorage.getItem(
+      new Date(today.getFullYear(), today.getMonth(), i)
+    );
+    if (checkDate) {
+      document.getElementById(i).classList.add('hasItem');
+    } else {
+      document.getElementById(i).classList.remove('hasItem');
+    }
+  }
+}
+markingDate();
 
 // ----todo list----
 const toDoForm = document.getElementById('todo-form');
@@ -326,10 +359,13 @@ const paintToDo = function (newTodo) {
 
     if (document.querySelectorAll('#todo-list li').length === 0) {
       noItem.classList.remove('hidden');
+      localStorage.removeItem(TODOS_KEY);
     }
+
+    markingDate();
   });
   // Add click listner to checkbox
-  checkBox.addEventListener('click', function () {
+  checkBox.addEventListener('click', function (e) {
     const correspondingItem = this.parentElement;
     const checked = this.checked;
     stateToDo(
@@ -341,6 +377,18 @@ const paintToDo = function (newTodo) {
     checked
       ? correspondingItem.classList.add('checked')
       : correspondingItem.classList.remove('checked');
+
+    if (document.querySelectorAll('.checked').length > 0) {
+      document.getElementById('filter').removeAttribute('disabled');
+    } else {
+      document.getElementById('filter').setAttribute('disabled', 'true');
+    }
+
+    if (document.getElementById('filter').classList.contains('on')) {
+      e.target.parentElement.classList.add('hidden');
+    } else {
+      e.target.parentElement.classList.remove('hidden');
+    }
   });
   //
   li.appendChild(span);
@@ -368,6 +416,7 @@ const handleToDoSubmit = function (event) {
     paintToDo(newTodoObj);
     saveToDos(toDos);
     noItem.classList.add('hidden');
+    markingDate();
   }
 };
 
